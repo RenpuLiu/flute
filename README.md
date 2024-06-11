@@ -9,7 +9,7 @@ To run FLUTE, use the following command template:
 ```bash
 python main_fedrep.py --alg fedrep --dataset [dataset] --num_users [num_users] --model [model] --shard_per_user [shard_per_user] --frac [frac] --local_bs [local_bs] --lr [lr] --epochs [epochs] --local_ep [local_ep] --local_rep_ep [local_rep_ep] --gpu [gpu]
 
-
+```
 
 ## Citation
 
