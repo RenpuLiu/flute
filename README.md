@@ -1,24 +1,19 @@
 # Federated Representation Learning in the Under-Parameterized Regime (ICML 2024)
 
-
-Code to reproduce the results for the proposed method FLUTE in our paper [Exploiting Shared Representations for Personalized Federated Learning](https://arxiv.org/pdf/2406.04596.pdf).
-
-Renpu Liu, Cong Shen, Jing Yang
-
-This paper has been accepted at ICML 2024.
-
+This repository contains the code to reproduce the results for the proposed method FLUTE in our paper [Exploiting Shared Representations for Personalized Federated Learning](https://arxiv.org/pdf/2406.04596.pdf) by Renpu Liu, Cong Shen, and Jing Yang. This paper has been accepted at ICML 2024.
 
 ## Usage
 
-FLUTE is run using a command of the following form:
+To run FLUTE, use the following command template:
 
-`python main_fedrep.py --alg fedrep --dataset [dataset] --num_users [num_users] --model [model] --model [model] --shard_per_user [shard_per_user] --frac [frac] --local_bs [local_bs] --lr [lr] --epochs [epochs] --local_ep [local_ep] --local_rep_ep [local_rep_ep] --gpu [gpu]`
+```bash
+python main_fedrep.py --alg fedrep --dataset [dataset] --num_users [num_users] --model [model] --shard_per_user [shard_per_user] --frac [frac] --local_bs [local_bs] --lr [lr] --epochs [epochs] --local_ep [local_ep] --local_rep_ep [local_rep_ep] --gpu [gpu]
 
 
 
 ## Citation
 
-Please cite our paper if you use our implementation:
+If you use our implementation, please cite our paper:
 
 ```
 @misc{liu2024federated,
@@ -31,6 +26,6 @@ Please cite our paper if you use our implementation:
 }
 ```
 
-# Our code is based on Collins' work
+# Acknowledgement
 
-https://github.com/lgcollins/FedRep
+Our code is based on Collins' work, available at https://github.com/lgcollins/FedRep
