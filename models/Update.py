@@ -189,6 +189,7 @@ class LocalUpdate(object):
 
                     loss.backward()
                     optimizer.step()
+                    
                 images, labels = images.to(self.args.device), labels.to(self.args.device)
 
                 net.zero_grad()
@@ -210,22 +211,22 @@ class LocalUpdate(object):
                             loss += r2
                     r3 = 0.0005 * torch.norm(feature, p='fro') ** 2
                     loss += r3
-                    if self.args.alg == 'flute' and iter < head_eps:
-                        for name, param in net.named_parameters():
-                            if name == 'fc3.weight':
-                                f_norm = torch.norm(torch.matmul(param, param.t()), p='fro')
-                                r1 = 0.25 * torch.norm(torch.matmul(param, param.t()) / f_norm - 1 / torch.sqrt(
-                                    torch.tensor(num_classes - 1).to(self.args.device)) \
-                                                       * torch.mul((torch.eye(num_classes).to(
-                                    self.args.device) - 1 / num_classes * torch.ones((num_classes, num_classes)).to(
-                                    self.args.device)), torch.matmul(class_count, class_count.T).to(self.args.device)), p='fro')
-                                loss += r1
-                        for name, param in net.named_parameters():
-                            if name == 'fc3.weight':
-                                r2 = 0.0025 * torch.norm(param, p='fro') ** 2
-                                loss += r2
-                    loss.backward()
-                    optimizer.step()
+                elif self.args.alg == 'flute' and iter < head_eps:
+                    for name, param in net.named_parameters():
+                        if name == 'fc3.weight':
+                            f_norm = torch.norm(torch.matmul(param, param.t()), p='fro')
+                            r1 = 0.25 * torch.norm(torch.matmul(param, param.t()) / f_norm - 1 / torch.sqrt(
+                                torch.tensor(num_classes - 1).to(self.args.device)) \
+                                                    * torch.mul((torch.eye(num_classes).to(
+                                self.args.device) - 1 / num_classes * torch.ones((num_classes, num_classes)).to(
+                                self.args.device)), torch.matmul(class_count, class_count.T).to(self.args.device)), p='fro')
+                            loss += r1
+                    for name, param in net.named_parameters():
+                        if name == 'fc3.weight':
+                            r2 = 0.0025 * torch.norm(param, p='fro') ** 2
+                            loss += r2
+                loss.backward()
+                optimizer.step()
 
 
                 num_updates += 1
@@ -451,4 +452,3 @@ def fun_reg_2(args, w_locals, idxs_users):
     print('****Global Regularization: ' + str(loss.item()) + '\n')
 
     return loss.item()
-
